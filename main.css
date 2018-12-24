@@ -1,0 +1,10 @@
+body {
+    background-color: grey;
+}
+
+.jumbotron {
+    background-image: url('assets/images/thomas.png');
+    background-size: cover;
+    /* background-position: 0px -30px; */
+    color: white;
+}

@@ -47,31 +47,26 @@ $(document).ready(function() {
         var firstTrainTime = childSnapshot.val().time;
         var trainFrequency = childSnapshot.val().frequency;
       
-        // Employee Info
+        // Train Info
         console.log(trainName);
         console.log(trainDestination);
         console.log(firstTrainTime);
         console.log(trainFrequency);
-      
-        // // Prettify the employee start
-        // var empStartPretty = moment.unix(empStart).format("MM/DD/YYYY");
-      
-        // // Calculate the months worked using hardcore math
-        // // To calculate the months worked
-        // var empMonths = moment().diff(moment(empStart, "X"), "months");
-        // console.log(empMonths);
-      
-        // // Calculate the total billed rate
-        // var empBilled = empMonths * empRate;
-        // console.log(empBilled);
+
+        var firstTimeConverted = moment(firstTrainTime, "HH:mm");
+        var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+        var tRemainder = diffTime % trainFrequency;
+        var tMinutesTillTrain = trainFrequency - tRemainder;
+        var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+        var nextTrainTime = moment(nextTrain).format("hh:mm");
       
         // Create the new row
         var newRow = $("<tr>").append(
           $("<td>").text(trainName),
           $("<td>").text(trainDestination),
           $("<td>").text(trainFrequency),
-          $("<td>").text("Next Arrival"),
-          $("<td>").text("Minutes Away"),
+          $("<td>").text(nextTrainTime),
+          $("<td>").text(tMinutesTillTrain),
         );
       
         // Append the new row to the table
